@@ -40,7 +40,7 @@ public class StartNewGame extends ExceptionAdvice {
         if (CollectionUtils.isEmpty(chessPiecesList) || chessPiecesList.size() != chessPiecesCount) {
             return ApiResponse.error(ApiErrorCode.SYSTEM_ERROR);
         }
-        byte[] chessArray = new byte[90];
+        Byte[] chessArray = new Byte[90];
         // 红棋
         chessArray[0] = chessPiecesList.get(0).getId();
         chessArray[1] = chessPiecesList.get(1).getId();
