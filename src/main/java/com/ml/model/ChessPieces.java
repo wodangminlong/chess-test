@@ -1,5 +1,6 @@
 package com.ml.model;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,7 @@ import lombok.experimental.Accessors;
 @TableName(value = "tb_chess_pieces")
 public class ChessPieces {
 
+    @TableId
     private Byte id;
 
     private Character name;
