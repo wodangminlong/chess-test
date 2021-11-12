@@ -53,12 +53,18 @@ public class ChessPiecesRule {
         return chessArray;
     }
 
-    public static int[] getPiecesNext(Byte id, int nowIndex, Byte[] nowPieces) {
+    public static int[] getPiecesNext(Byte id) {
         int[] indexArray = new int[]{};
         switch (id) {
             case 1:
             case 17:
                 // 车走直线
+                break;
+            case 2:
+            case 18:
+                // 马向前一步向对角线的点走
+                break;
+            default:
                 break;
         }
         return indexArray;
