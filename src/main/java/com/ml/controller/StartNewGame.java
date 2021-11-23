@@ -1,18 +1,14 @@
 package com.ml.controller;
 
-import com.ml.common.ApiErrorCode;
 import com.ml.common.ApiResponse;
 import com.ml.exception.ExceptionAdvice;
-import com.ml.model.ChessPieces;
-import com.ml.rule.ChessPiecesRule;
-import com.ml.service.ChessPiecesService;
+import com.ml.service.GameService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Objects;
 
 /**
  * StartNewGame
@@ -25,7 +21,7 @@ import java.util.List;
 public class StartNewGame extends ExceptionAdvice {
 
     @Resource
-    private ChessPiecesService chessPiecesService;
+    private GameService gameService;
 
     /**
      * start new game
@@ -34,12 +30,12 @@ public class StartNewGame extends ExceptionAdvice {
      */
     @PostMapping("startNewGame")
     public ApiResponse startNewGame() {
-        byte chessPiecesCount = 32;
-        List<ChessPieces> chessPiecesList = chessPiecesService.listGetPieces();
-        if (CollectionUtils.isEmpty(chessPiecesList) || chessPiecesList.size() != chessPiecesCount) {
-            return ApiResponse.error(ApiErrorCode.SYSTEM_ERROR);
+        Long id = gameService.startNewGame();
+        log.info("id: {}", id);
+        if (Objects.isNull(id)) {
+            return ApiResponse.error();
         }
-        return ApiResponse.success(ChessPiecesRule.initChessPieces(chessPiecesList));
+        return ApiResponse.success();
     }
 
 }
