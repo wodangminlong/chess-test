@@ -2,6 +2,7 @@ package com.ml.rule;
 
 import com.ml.model.ChessPieces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +58,9 @@ public class ChessPiecesRule {
         int[] indexArray = new int[]{};
         switch (id) {
             case 1:
+            case 9:
             case 17:
+            case 25:
                 // 车走直线
                 break;
             case 2:
@@ -68,6 +71,52 @@ public class ChessPiecesRule {
                 break;
         }
         return indexArray;
+    }
+
+    private int[] getChariotNext(int index, Byte id, Byte[] piecesPositionArray) {
+        List<Integer> result = new ArrayList<>();
+        int y = 10;
+        // 上检索
+        for (int i = 0; i < y; i++) {
+            int positionTopIndex = index + i * 9;
+            if (positionTopIndex > 89) {
+                continue;
+            }
+            if (piecesPositionArray[positionTopIndex] == null) {
+                result.add(positionTopIndex);
+            }
+        }
+        // 下检索
+        for (int i = 0; i < y; i++) {
+            int positionBottomIndex = index - i * 9;
+            if (positionBottomIndex < 0) {
+                continue;
+            }
+            if (piecesPositionArray[positionBottomIndex] == null ) {
+                result.add(positionBottomIndex);
+            }
+        }
+        int x = 9;
+        // 左检索
+        for (int i = 0; i < y; i++) {
+            int positionTopIndex = index + i * 9;
+            if (positionTopIndex > 89) {
+                continue;
+            }
+            if (piecesPositionArray[positionTopIndex] == null) {
+                result.add(positionTopIndex);
+            }
+        }
+        // 右检索
+        for (int i = 0; i < y; i++) {
+            int positionBottomIndex = index - i * 9;
+            if (positionBottomIndex < 0) {
+                continue;
+            }
+            if (piecesPositionArray[positionBottomIndex] == null ) {
+                result.add(positionBottomIndex);
+            }
+        }
     }
 
 }
