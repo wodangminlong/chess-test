@@ -1,5 +1,6 @@
 package com.ml.controller;
 
+import com.ml.aspect.Log;
 import com.ml.common.ApiErrorCode;
 import com.ml.common.ApiResponse;
 import com.ml.exception.ExceptionAdvice;
@@ -27,6 +28,7 @@ public class InitPiecesPosition extends ExceptionAdvice {
     @Resource
     private ChessPiecesService chessPiecesService;
 
+    @Log("初始化棋盘")
     @PostMapping("initPiecesPosition")
     public ApiResponse initPiecesPosition() {
         byte chessPiecesCount = 32;
