@@ -54,15 +54,15 @@ public class ChessPiecesRule {
         return chessArray;
     }
 
-    public static int[] getPiecesNext(Byte id) {
-        int[] indexArray = new int[]{};
+    public static Integer[] getPiecesNext(Byte id, int index, Byte[] piecesPositionArray) {
+        Integer[] indexArray = new Integer[]{};
         switch (id) {
             case 1:
             case 9:
             case 17:
             case 25:
                 // 车走直线
-                break;
+                return getChariotNext(index, piecesPositionArray);
             case 2:
             case 18:
                 // 马向前一步向对角线的点走
@@ -73,17 +73,17 @@ public class ChessPiecesRule {
         return indexArray;
     }
 
-    private int[] getChariotNext(int index, Byte id, Byte[] piecesPositionArray) {
-        List<Integer> result = new ArrayList<>();
+    private static Integer[] getChariotNext(int index, Byte[] piecesPositionArray) {
+        List<Integer> resultList = new ArrayList<>();
         int y = 10;
         // 上检索
         for (int i = 0; i < y; i++) {
             int positionTopIndex = index + i * 9;
-            if (positionTopIndex > 89) {
-                continue;
+            if (positionTopIndex > 89 || piecesPositionArray[positionTopIndex] != null) {
+                break;
             }
             if (piecesPositionArray[positionTopIndex] == null) {
-                result.add(positionTopIndex);
+                resultList.add(positionTopIndex);
             }
         }
         // 下检索
@@ -93,30 +93,31 @@ public class ChessPiecesRule {
                 continue;
             }
             if (piecesPositionArray[positionBottomIndex] == null ) {
-                result.add(positionBottomIndex);
+                resultList.add(positionBottomIndex);
             }
         }
         int x = 9;
         // 左检索
-        for (int i = 0; i < y; i++) {
-            int positionTopIndex = index + i * 9;
-            if (positionTopIndex > 89) {
+        for (int i = 0; i < x; i++) {
+            int positionLeftIndex = index - 1;
+            if (positionLeftIndex < 0) {
                 continue;
             }
-            if (piecesPositionArray[positionTopIndex] == null) {
-                result.add(positionTopIndex);
+            if (piecesPositionArray[positionLeftIndex] == null) {
+                resultList.add(positionLeftIndex);
             }
         }
         // 右检索
-        for (int i = 0; i < y; i++) {
-            int positionBottomIndex = index - i * 9;
-            if (positionBottomIndex < 0) {
+        for (int i = 0; i < x; i++) {
+            int positionRightIndex = index + 1;
+            if (positionRightIndex > x) {
                 continue;
             }
-            if (piecesPositionArray[positionBottomIndex] == null ) {
-                result.add(positionBottomIndex);
+            if (piecesPositionArray[positionRightIndex] == null ) {
+                resultList.add(positionRightIndex);
             }
         }
+        return resultList.toArray(new Integer[0]);
     }
 
 }
